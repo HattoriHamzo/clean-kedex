@@ -30,16 +30,26 @@ async def get_pokemons(
     response: Response,
     filter: PokemonFilterRequest = Depends(),
 ) -> Page[PokemonResponse]:
-    """Endpoint to retrieve paginated Pokemon entities based on the provided filter.
+    """Retrieve paginated Pokemon entities based on filter criteria.
+
+    This endpoint retrieves a paginated list of Pokemon entities based on the specified filter criteria.
 
     Args:
-        request (Request): The FastAPI request object.
-        response (Response): The FastAPI response object.
-        filter (PokemonFilterRequest, optional): The filter criteria for querying Pokemon.
-            Defaults to Depends().
+        - **pokedex_id** (Optional): ID of the Pokedex (Optional).
+        - **name** (Optional): Name of the Pokemon (Optional).
+        - **pokemon_type** (Optional): Type of the Pokemon (Optional).
+        - **generation** (Optional): Generation of the Pokemon (Optional).
+        - **page** (Optional): Page number for pagination (Optional).
+        - **size** (Optional): Number of items per page (Optional).
 
     Returns:
-        Page[PokemonResponse]: A paginated response containing Pokemon entities.
+        - `page`: Current page number.
+        - `pages`: Total number of pages.
+        - `total`: Total number of items.
+        - `items`: List of Pokemon entities.
+
+    Raises:
+        - `HTTPException` (status code=500): If an internal server error occurs.
     """
 
     try:
