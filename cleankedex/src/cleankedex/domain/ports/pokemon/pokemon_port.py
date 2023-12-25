@@ -25,7 +25,7 @@ class PokemonPort(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    async def get_by_id(self, pokemon_id: int) -> Optional[Pokemon]:
+    async def get_by_id(self, pokemon_id: int) -> Pokemon:
         """Retrieve a Pokemon entity by its ID.
 
         Args:

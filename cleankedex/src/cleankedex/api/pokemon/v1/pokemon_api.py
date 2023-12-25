@@ -3,6 +3,9 @@ from cleankedex.api.pokemon.v1.request.pokemon_filter_request import (
 )
 from cleankedex.api.pokemon.v1.response.pokemon_response import PokemonResponse
 from cleankedex.api.pokemon.v1.services.pokemon_read_service import PokemonReadService
+from cleankedex.application.pokemon.exceptions.pokemon_not_found_exception import (
+    PokemonNotFoundException,
+)
 from cleankedex.config.api.api_message import ApiMessage
 from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
@@ -25,7 +28,7 @@ api_router: APIRouter = APIRouter()
         },
     },
 )
-async def get_pokemons(
+async def get_pokemons_paginated(
     request: Request,
     response: Response,
     filter: PokemonFilterRequest = Depends(),
@@ -53,13 +56,63 @@ async def get_pokemons(
     """
 
     try:
-        pokemons_response: Page[
+        paginated_pokemon_response: Page[
             PokemonResponse
         ] = await PokemonReadService().get_pokemons(filter=filter)
-        return pokemons_response
+        return paginated_pokemon_response
 
     except Exception:
-        logger.exception("Not controlled exception")
+        logger.debug("Not controlled exception")
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"message": "Something went wrong"},
+        )
+
+
+@api_router.get(
+    "/{id:int}",
+    response_model=PokemonResponse,
+    status_code=status.HTTP_200_OK,
+    responses={
+        status.HTTP_404_NOT_FOUND: {
+            "model": ApiMessage,
+        },
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {
+            "model": ApiMessage,
+        },
+    },
+)
+async def get_pokemon_by_id(
+    request: Request,
+    response: Response,
+    id: int,
+) -> Page[PokemonResponse]:
+    """Retrieve details of a Pokemon by its ID.
+
+    This endpoint returns the details of a Pokemon based on the provided ID.
+
+    Args:
+        - **id** (int): The ID of the Pokemon to retrieve.
+
+    Raises:
+        - `PokemonNotFoundException`: If the Pokemon with the specified ID is not found.
+        - `HTTPException`: If an internal server error occurs.
+    """
+
+    try:
+        pokemon_response: PokemonResponse = (
+            await PokemonReadService().get_pokemon_by_id(pokemon_id=id)
+        )
+        return pokemon_response
+
+    except PokemonNotFoundException:
+        logger.debug(f"Pokemon with id {id} not found")
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content={"message": "Something went wrong"},
+        )
+    except Exception:
+        logger.debug("Not controlled exception")
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             content={"message": "Something went wrong"},

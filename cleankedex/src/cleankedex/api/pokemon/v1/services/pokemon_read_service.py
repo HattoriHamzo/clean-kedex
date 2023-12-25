@@ -8,6 +8,7 @@ from cleankedex.domain.entities.pokemon.pokemon_entity import Pokemon
 from cleankedex.domain.ports.pokemon.pokemon_port import PokemonPort
 from cleankedex.config.log.logging import logger
 from fastapi_pagination import Page, paginate
+from automapper import mapper
 
 
 class PokemonReadService:
@@ -36,3 +37,23 @@ class PokemonReadService:
         paginated_pokemons_entity: Page[Pokemon] = paginate(pokemons_entity)
 
         return paginated_pokemons_entity
+
+    async def get_pokemon_by_id(self, pokemon_id: int) -> PokemonResponse:
+        """Get details of a Pokemon by its ID.
+
+        Args:
+            pokemon_id (int): The ID of the Pokemon.
+
+        Returns:
+            PokemonResponse: Details of the Pokemon.
+        """
+
+        logger.debug("get_pokemon_by_id started")
+
+        pokemon_entity: Pokemon = await self.pokemon_port.get_by_id(
+            pokemon_id=pokemon_id
+        )
+
+        mapped_pokemon: PokemonResponse = mapper.to(PokemonResponse).map(pokemon_entity)
+
+        return mapped_pokemon
