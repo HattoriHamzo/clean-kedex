@@ -1,18 +1,18 @@
 CREATE TABLE "pokemon" 
 (
-    "id"	INT,
-    "pokedex_id"	INT,
-    "name"	VARCHAR(50),
-    "type_1"	VARCHAR(50),
-    "type_2"	VARCHAR(50),
-    "total"	INT,
-    "hp"	INT,
-    "attack"	INT,
-    "defense"	INT,
+    "id" INT PRIMARY KEY,
+    "pokedex_id" INT NOT NULL,
+    "name" VARCHAR(50) NOT NULL,
+    "type_1" VARCHAR(50),
+    "type_2" VARCHAR(50),
+    "total" INT,
+    "hp" INT,
+    "attack" INT,
+    "defense" INT,
     "sp_attack"	INT,
-    "sp_defense"	INT,
+    "sp_defense" INT,
     "speed"	INT,
-    "generation"	INT
+    "generation" INT NOT NULL
 );
 
 INSERT INTO "pokemon" ("id", "pokedex_id", "name", "type_1", "type_2", "total", "hp", "attack", "defense", "sp_attack", "sp_defense", "speed", "generation") VALUES ('1', '1', 'Bulbasaur', 'Grass', 'Poison', '318', '45', '49', '49', '65', '65', '45', '1');
