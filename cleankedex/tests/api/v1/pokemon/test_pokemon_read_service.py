@@ -1,4 +1,3 @@
-from typing import List
 from unittest.mock import AsyncMock, patch
 from cleankedex.api.pokemon.v1.response.pokemon_response import PokemonResponse
 from cleankedex.api.pokemon.v1.services.pokemon_read_service import PokemonReadService
