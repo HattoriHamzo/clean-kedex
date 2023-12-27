@@ -1,2 +1,2 @@
-# hexa-pokedex
+# hexa-kedex
 [add description]
