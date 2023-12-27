@@ -7,11 +7,23 @@ from cleankedex.domain.entities.pokemon.pokemon_entity import Pokemon
 from cleankedex.domain.models.pokemon.pokemon_model import PokemonModel
 from fastapi_pagination import Page
 
-# Singles
+
+# SINGLES #
 
 
 def create_pokemon_model(id: int, pokedex_id: int) -> PokemonModel:
-    """ """
+    """
+    Create a PokemonModel instance with the provided ID and Pokedex ID.
+
+    Args:
+        id (int): The unique identifier for the Pokemon.
+        pokedex_id (int): The Pokedex ID of the Pokemon.
+
+    Returns:
+        PokemonModel: An instance of the PokemonModel with default attribute values.
+
+    """
+
     pokemon_model: PokemonModel = PokemonModel(
         id=id,
         pokedex_id=pokedex_id,
@@ -31,7 +43,18 @@ def create_pokemon_model(id: int, pokedex_id: int) -> PokemonModel:
 
 
 def create_pokemon_entity(id: int, pokedex_id: int) -> Pokemon:
-    """ """
+    """
+    Create a Pokemon instance (entity) with the provided ID and Pokedex ID.
+
+    Args:
+        id (int): The unique identifier for the Pokemon.
+        pokedex_id (int): The Pokedex ID of the Pokemon.
+
+    Returns:
+        Pokemon: An instance of the Pokemon entity with default attribute values.
+
+    """
+
     pokemon_entity: Pokemon = Pokemon(
         id=id,
         pokedex_id=pokedex_id,
@@ -51,7 +74,17 @@ def create_pokemon_entity(id: int, pokedex_id: int) -> Pokemon:
 
 
 def create_pokemon_response(pokedex_id: int) -> PokemonResponse:
-    """ """
+    """
+    Create a PokemonResponse instance with the provided Pokedex ID.
+
+    Args:
+        pokedex_id (int): The Pokedex ID of the Pokemon.
+
+    Returns:
+        PokemonResponse: An instance of the PokemonResponse with default attribute values.
+
+    """
+
     pokemon_response: PokemonResponse = PokemonResponse(
         pokedex_id=pokedex_id,
         name="Bulbasaur",
@@ -69,11 +102,18 @@ def create_pokemon_response(pokedex_id: int) -> PokemonResponse:
     return pokemon_response
 
 
-# List
+# LISTS #
 
 
 def create_pokemons_model() -> List[PokemonModel]:
-    """ """
+    """
+    Create a list of PokemonModel instances with default attribute values.
+
+    Returns:
+        List[PokemonModel]: A list containing instances of PokemonModel.
+
+    """
+
     pokemons_model: List[PokemonModel] = [
         PokemonModel(
             id=1,
@@ -125,7 +165,14 @@ def create_pokemons_model() -> List[PokemonModel]:
 
 
 def create_pokemons_entity() -> List[Pokemon]:
-    """ """
+    """
+    Create a list of Pokemon instances with default attribute values.
+
+    Returns:
+        List[Pokemon]: A list containing instances of Pokemon.
+
+    """
+
     pokemons_entity: List[Pokemon] = [
         Pokemon(
             id=1,
@@ -176,10 +223,18 @@ def create_pokemons_entity() -> List[Pokemon]:
     return pokemons_entity
 
 
-# paginated PokemonResponse
+# PAGINATED #
 
 
 def create_paginated_pokemon_response() -> Page[PokemonResponse]:
+    """
+    Create a paginated response of PokemonResponse instances with default attribute values.
+
+    Returns:
+        Page[PokemonResponse]: A paginated response containing instances of PokemonResponse.
+
+    """
+
     paginated_pokemon_response: Page[PokemonResponse] = Page[PokemonResponse](
         items=[
             PokemonResponse(
@@ -234,13 +289,25 @@ def create_paginated_pokemon_response() -> Page[PokemonResponse]:
     return paginated_pokemon_response
 
 
-# Filter
+# FILTERS #
 
 
 def create_pokemon_filter_request(
     pokedex_id: int, name: str, pokemon_type: str, generation: int
 ) -> PokemonFilterRequest:
-    """ """
+    """
+    Create a PokemonFilterRequest instance with the provided filter criteria.
+
+    Args:
+        pokedex_id (int): The Pokedex ID for filtering Pokemon.
+        name (str): The name for filtering Pokemon.
+        pokemon_type (str): The Pokemon type for filtering.
+        generation (int): The generation for filtering Pokemon.
+
+    Returns:
+        PokemonFilterRequest: An instance of PokemonFilterRequest with the provided filter criteria.
+
+    """
 
     pokemon_filter_request: PokemonFilterRequest = PokemonFilterRequest(
         pokedex_id=pokedex_id,

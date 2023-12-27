@@ -19,6 +19,14 @@ from tests.utilities.pokemon import (
 )
 
 
+# patch urls
+db_connection_manager: str = (
+    "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
+)
+
+# FIXTURES STARTS HERE #
+
+
 @pytest.fixture
 def mock_get_pokemons() -> Mock:
     pokemons_model: List[PokemonModel] = create_pokemons_model()
@@ -60,9 +68,7 @@ def mock_get_pokemon_by_id_not_found() -> Mock:
 
 @pytest.mark.asyncio
 async def test_get_pokemons_without_filters(mock_get_pokemons):
-    with patch(
-        "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
-    ) as connection:
+    with patch(db_connection_manager) as connection:
         connection.return_value.__enter__.return_value.session = mock_get_pokemons
 
         pokemon_filter_request: PokemonFilterRequest = PokemonFilterRequest()
@@ -80,9 +86,7 @@ async def test_get_pokemons_without_filters(mock_get_pokemons):
 
 @pytest.mark.asyncio
 async def test_get_pokemons_with_pokedex_id_filter(mock_get_pokemons_filter):
-    with patch(
-        "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
-    ) as connection:
+    with patch(db_connection_manager) as connection:
         connection.return_value.__enter__.return_value.session = (
             mock_get_pokemons_filter
         )
@@ -104,9 +108,7 @@ async def test_get_pokemons_with_pokedex_id_filter(mock_get_pokemons_filter):
 
 @pytest.mark.asyncio
 async def test_get_pokemons_with_name_filter(mock_get_pokemons_filter):
-    with patch(
-        "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
-    ) as connection:
+    with patch(db_connection_manager) as connection:
         connection.return_value.__enter__.return_value.session = (
             mock_get_pokemons_filter
         )
@@ -128,9 +130,7 @@ async def test_get_pokemons_with_name_filter(mock_get_pokemons_filter):
 
 @pytest.mark.asyncio
 async def test_get_pokemons_with_pokemon_type_filter(mock_get_pokemons_filter):
-    with patch(
-        "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
-    ) as connection:
+    with patch(db_connection_manager) as connection:
         connection.return_value.__enter__.return_value.session = (
             mock_get_pokemons_filter
         )
@@ -152,9 +152,7 @@ async def test_get_pokemons_with_pokemon_type_filter(mock_get_pokemons_filter):
 
 @pytest.mark.asyncio
 async def test_get_pokemons_with_generation_filter(mock_get_pokemons_filter):
-    with patch(
-        "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
-    ) as connection:
+    with patch(db_connection_manager) as connection:
         connection.return_value.__enter__.return_value.session = (
             mock_get_pokemons_filter
         )
@@ -176,9 +174,7 @@ async def test_get_pokemons_with_generation_filter(mock_get_pokemons_filter):
 
 @pytest.mark.asyncio
 async def test_get_pokemon_by_id(mock_get_pokemon_by_id):
-    with patch(
-        "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
-    ) as connection:
+    with patch(db_connection_manager) as connection:
         connection.return_value.__enter__.return_value.session = mock_get_pokemon_by_id
 
         pokemon_adapter: PokemonAdapter = PokemonAdapter()
@@ -192,9 +188,7 @@ async def test_get_pokemon_by_id(mock_get_pokemon_by_id):
 
 @pytest.mark.asyncio
 async def test_get_pokemon_by_id_not_found_exception(mock_get_pokemon_by_id_not_found):
-    with patch(
-        "cleankedex.adapters.pokemon.pokemon_adapter.DbConnectionManager"
-    ) as connection:
+    with patch(db_connection_manager) as connection:
         connection.return_value.__enter__.return_value.session = (
             mock_get_pokemon_by_id_not_found
         )

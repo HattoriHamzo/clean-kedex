@@ -15,9 +15,17 @@ from tests.utilities.pokemon import (
 )
 
 
+# patch urls
+pokemon_read_service_paginate: str = (
+    "cleankedex.api.pokemon.v1.services.pokemon_read_service.paginate"
+)
+
+# FIXTURES STARTS HERE #
+
+
 @pytest.fixture
 def mock_get_pokemons() -> AsyncMock:
-    pokemons_entity: Lipost[Pokemon] = create_pokemons_entity()
+    pokemons_entity: List[Pokemon] = create_pokemons_entity()
 
     mock_repo: AsyncMock = AsyncMock()
     mock_repo.get_pokemons = AsyncMock(return_value=pokemons_entity)
@@ -38,9 +46,7 @@ def mock_get_pokemon_by_id() -> AsyncMock:
 
 @pytest.mark.asyncio
 async def test_get_pokemons(mock_get_pokemons) -> None:
-    with patch(
-        "cleankedex.api.pokemon.v1.services.pokemon_read_service.paginate"
-    ) as mock_paginate:
+    with patch(pokemon_read_service_paginate) as mock_paginate:
         # You have to mock paginate from fastapi_pagination this way because,
         # you will get an error 'add_pagination or params'
 
