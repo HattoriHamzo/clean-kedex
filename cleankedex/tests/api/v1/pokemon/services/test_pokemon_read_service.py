@@ -1,3 +1,4 @@
+from typing import List
 from unittest.mock import AsyncMock, patch
 from cleankedex.api.pokemon.v1.response.pokemon_response import PokemonResponse
 from cleankedex.api.pokemon.v1.services.pokemon_read_service import PokemonReadService
@@ -16,7 +17,7 @@ from tests.utilities.pokemon import (
 
 @pytest.fixture
 def mock_get_pokemons() -> AsyncMock:
-    pokemons_entity: Pokemon = create_pokemons_entity()
+    pokemons_entity: Lipost[Pokemon] = create_pokemons_entity()
 
     mock_repo: AsyncMock = AsyncMock()
     mock_repo.get_pokemons = AsyncMock(return_value=pokemons_entity)
