@@ -1,2 +1,2 @@
-# hexa-kedex
+# clean-kedex
 [add description]
