@@ -23,9 +23,14 @@ clean-kedex tries to be an elegantly designed Pokédex project that adheres to t
 
 ## Installation
 
-[ add the docker instalation ]
+First of all set up the Clean-Kedex database, navigate to `cleankedex/docker-compose-db` directory and execute the docker-compose file:
 
-#### Instalation with vsCode
+```bash
+cd cleankedex/docker-compose-db
+docker-compose up -d
+```
+
+#### Installation with vsCode
 
 First you'll need to create a new virtual environment and install all the dependencies.
 
