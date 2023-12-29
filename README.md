@@ -20,6 +20,8 @@ clean-kedex tries to be an elegantly designed Pokédex project that adheres to t
 
 ![Docker Version](https://img.shields.io/badge/Docker-20.10.7%2B-blue.svg)
 
+## Installation
+
 
 #### Installation with docker-compose
 
