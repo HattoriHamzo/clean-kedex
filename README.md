@@ -30,6 +30,16 @@ cd cleankedex/docker-compose-db
 docker-compose up -d
 ```
 
+
+#### Installation with docker-compose
+
+Navigate to `cleankedex` directory and execute the docker-compose file:
+
+```bash
+cd clean-kedex
+docker-compose up -d
+```
+
 #### Installation with vsCode
 
 First you'll need to create a new virtual environment and install all the dependencies.
