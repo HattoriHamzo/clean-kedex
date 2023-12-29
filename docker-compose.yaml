@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: pokemon-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: pokedex
+      POSTGRES_USER: guest
+      POSTGRES_PASSWORD: guest
+    volumes:
+      - ./docker-compose-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres-data:/var/lib/postgresql/data
+
+  cleankedex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        package_name: cleankedex
+    depends_on:
+      - postgres
+    container_name: cleankedex
+    ports:
+      - 8000:8000
+    environment:
+      - SQLALCHEMY_DATABASE_URI=postgresql://guest:guest@postgres:5432/pokedex
+      - LOG_LEVEL=DEBUG
+
+volumes:
+  postgres-data:
